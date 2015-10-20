@@ -1,0 +1,38 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "sendSMS": {
+    "name": "sendSMS",
+    "connector": "rest",
+    "debug": "true",
+    "options": {
+      "headers": {
+        "Authorization": "Bearer {token}",
+        "Accept": "application/json",
+        "content-type": "text/html"
+      }
+    },
+    "operations": [
+      {
+        "template": {
+          "method": "GET",
+          "url": "https://test.api.tigo.com/v1/tigo/mobile/kannel/sendsms?from={from}&to={to}&text={text}",
+          "headers": {
+            "Authorization": "Bearer {token}",
+            "Accept": "application/json"
+          }
+        },
+        "functions": {
+          "send": [
+            "token",
+            "from",
+            "to",
+            "text"
+          ]
+        }
+      }
+    ]
+  }
+}

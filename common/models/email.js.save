@@ -1,0 +1,31 @@
+module.exports = function(Email) {
+
+  var htmlToText = require('html-to-text');
+  
+  Email.log = function (req, cb){
+
+  console.log ("req",req);
+  console.log ("req.sender", req.sender);
+  console.log ("req.recipient", req.recipient );
+  console.log ("req.http://email.deezer.com/wf/click?upn=9qTwlJT2p2eUwS5PSOuZWmEIXs0hTVLsbQBQAvyTDCUwCKrbcMYbHvsCuGRazn9suU3HtC9BHqzk5CyC9ro6ynhjhCfF-2FhLy7anPQumcTboCLw5UeW9qk9U7pRt94TOaapDqiNSa4FKDD5IkbwOPIrYUSn", req.body-plain);
+
+  var bodyPlain = req.body-plain;
+  var bodyPlainText = htmlToText.fromString(bodyPlain, { wordwrap:130});
+
+  console.log ("bodyPlainText", bodyPlainText);
+
+  console.log ("*********************************************");
+	cb (null, "ok");
+  }
+
+  Email.remoteMethod (
+	'log',
+	{
+		accepts:[
+			{arg:"req", type:"object", http:{source:"body"}},
+			]
+	}
+  );
+
+
+};
