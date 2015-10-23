@@ -13,10 +13,12 @@ module.exports = function(Email) {
   var bodyPlain = req['body-plain'];
   var bodyPlainText = htmlToText.fromString(bodyPlain, { wordwrap:130});
 
+  var utfconverted =  new Buffer (bodyPlainText).toString('utf-8');
+
 //  console.log ("bodyPlainText", bodyPlainText);
 
-  var startIndex = bodyPlainText.indexOf ("image");
-  var smsText = bodyPlainText.substr (startIndex+15);
+  var startIndex = utfconverted.indexOf ("image");
+  var smsText = bodyPlainText.substr (utfconverted+15);
 
   console.log ("smsText", smsText);
 
