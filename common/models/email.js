@@ -1,6 +1,7 @@
 module.exports = function(Email) {
 
   var htmlToText = require('html-to-text');
+  var utf8 = require('utf8');
 
   Email.toSms = function (req, cb){
     var mSms = Email.app.dataSources.sendSMS;
@@ -11,12 +12,13 @@ module.exports = function(Email) {
 //  console.log ("req['body-plain']", req['body-plain']);
 
   var bodyPlain = req['body-plain'];
-  var bodyPlainText = htmlToText.fromString(bodyPlain, { wordwrap:130});
+  var bodyPlainText = htmlToText.fromString(bodyPlain);
 
-  var utfconverted =  new Buffer (bodyPlainText).toString('utf-8');
+  var utfconverted =  utf8.encode (bodyPlainText);;
 
 //  console.log ("bodyPlainText", bodyPlainText);
 
+  console.log  ("utfconverted" + utfconverted);
   var startIndex = utfconverted.indexOf ("image");
   var smsText = bodyPlainText.substr (utfconverted+15);
 
